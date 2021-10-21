@@ -335,3 +335,17 @@ ALTER SEQUENCE space_id_seq RESTART 1000;
 ALTER SEQUENCE venue_id_seq RESTART 1000;
 
 COMMIT;
+
+SELECT name
+FROM space
+JOIN reservation ON space.id = reservation.space_id
+WHERE reservation.start_date BETWEEN '2021-11-03' AND '2021-11-11'
+AND open_from
+AND open_to
+
+SELECT name
+FROM space
+JOIN reservation ON space.id = reservation.space_id
+WHERE venue_id = 1
+AND reservation.start_date > '2021-10-21'
+AND reservation.end_date < '2021-10-31' 
