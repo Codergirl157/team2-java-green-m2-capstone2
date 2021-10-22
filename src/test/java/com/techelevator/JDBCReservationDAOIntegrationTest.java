@@ -6,6 +6,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 public class JDBCReservationDAOIntegrationTest extends DAOIntegrationTest {
 
 
@@ -22,7 +28,20 @@ public class JDBCReservationDAOIntegrationTest extends DAOIntegrationTest {
     @Test
     public void return_new_reservation(){
 
-      //  dao.createReservation();
+        long nextId = retrieveNextReservationId();
+
+        Reservation newReservation = attainReservation(nextId, 2, 50,LocalDate.parse("2021-06-15"), LocalDate.parse("2021-06-20"), "The Watkins Family");
+
+        Reservation result = dao.createReservation(newReservation);
+
+        assertNotNull(result);
+        assertEquals(newReservation.getReservationId(), result.getReservationId());
+
+
+
+
+
+
 
 
 
@@ -39,8 +58,8 @@ public class JDBCReservationDAOIntegrationTest extends DAOIntegrationTest {
         reservation.setReservationId(results.getLong("reservation_id"));
         reservation.setSpaceId(results.getLong("space_id"));
         reservation.setNumberOfAttendees(results.getInt("number_of_attendees"));
-        reservation.setStartDate(results.getDate("start_date"));
-        reservation.setEndDate(results.getDate("end_date"));
+        reservation.setStartDate(results.getDate("start_date").toLocalDate());
+        reservation.setEndDate(results.getDate("end_date").toLocalDate());
         reservation.setReservedFor(results.getString("reserved_for"));
 
 
@@ -66,4 +85,20 @@ public class JDBCReservationDAOIntegrationTest extends DAOIntegrationTest {
 
 
     }
+    private Reservation attainReservation(long reservationId, long spaceId, int numberOfAttendees, LocalDate startDate, LocalDate endDate, String reservedFor) {
+
+
+
+        Reservation reservation = new Reservation();
+
+        reservation.setReservationId(reservationId);
+        reservation.setSpaceId(spaceId);
+        reservation.setNumberOfAttendees(numberOfAttendees);
+        reservation.setStartDate(startDate);
+        reservation.setEndDate(endDate);
+        reservation.setReservedFor(reservedFor);
+
+        return reservation;
+    }
+
 }

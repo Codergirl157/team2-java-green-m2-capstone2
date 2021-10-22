@@ -47,10 +47,13 @@ public class JDBCVenueDAO implements VenueDAO{
     public Venue retrieveVenueById(Long id) {
 
         Venue venue = null;
-
-        String sql = "SELECT name " +
+        //
+        String sql = "SELECT venue.*, city.name, state.abbreviation " +
                 "FROM venue " +
-                "WHERE id = ?";
+                "JOIN city on venue.city_id = city.id "+
+                "JOIN state on city.state_abbreviation = state.abbreviation "
+                + "WHERE venue.id = ?";
+
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 

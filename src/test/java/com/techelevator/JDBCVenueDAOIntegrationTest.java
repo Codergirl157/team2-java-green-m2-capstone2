@@ -1,6 +1,7 @@
 package com.techelevator;
 
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,25 +18,30 @@ import static org.junit.Assert.assertNotNull;
 
 public class JDBCVenueDAOIntegrationTest extends DAOIntegrationTest{
     private static SingleConnectionDataSource dataSource;
-    private VenueDAO venueDAO;
+   // private VenueDAO venueDAO;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
     private JDBCVenueDAO dao;
 
     @Before
     public void setUp(){
-        venueDAO = new JDBCVenueDAO(getDataSource());
+        dao = new JDBCVenueDAO(getDataSource());
     }
 
     @Test
     public void return_all_venues(){
 
-        List <Venue> listOfAllVenues = venueDAO.retrieveAllVenues();
+        long nextId = retrieveNextVenueId();
+
+
+        List <Venue> listOfAllVenues = dao.retrieveAllVenues();
 
 
         assertNotNull(listOfAllVenues);
         Assert.assertEquals(15, listOfAllVenues.size());
-        //check size first then
-        //add something to list see if it goes up by one, INSERT into table
+
+        listOfAllVenues.add(attainVenue(nextId, "Hogwarts", "Bona", "MI", "Themost magical place"));
+
+        Assert.assertEquals(16, listOfAllVenues.size());
 
     }
 
@@ -45,17 +51,13 @@ public class JDBCVenueDAOIntegrationTest extends DAOIntegrationTest{
 
      long nextId = retrieveNextVenueId();
 
-     //Venue theVenue = attainVenue( nextId, "SomeVenue", "Jumbo", "OH", "The perfect place to test the size");
      String sqlInsertVenue;
-        sqlInsertVenue = "INSERT INTO venue(id, name, city, state, description ) VALUES (?, 'SomeVenue', 'Jumbo', 'OH', 'The perfect place to test the size' ) ";
+        sqlInsertVenue = "INSERT INTO venue(id, name, city_id, description ) VALUES (?, 'SomeVenue', 2, 'The perfect place to test the size' ) ";
         jdbcTemplate.update(sqlInsertVenue, nextId);
 
      Venue results = dao.retrieveVenueById(nextId);
 
      assertNotNull(results);
-    // assertVenuesAreEqual(theVenue, results);
-
-        //when inserting dummy data we can hard code jdbcTemplate and then compare
 
     }
 

@@ -39,8 +39,8 @@ public class JDBCReservationDAO implements ReservationDAO {
         reservation.setReservationId(results.getLong("reservation_id"));
         reservation.setSpaceId(results.getLong("space_id"));
         reservation.setNumberOfAttendees(results.getInt("number_of_attendees"));
-        reservation.setStartDate(results.getDate("start_date"));
-        reservation.setEndDate(results.getDate("end_date"));
+        reservation.setStartDate(results.getDate("start_date").toLocalDate());
+        reservation.setEndDate(results.getDate("end_date").toLocalDate());
         reservation.setReservedFor(results.getString("reserved_for"));
 
 
