@@ -6,6 +6,11 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 public class ExcelsiorCLI {
 
+	private UserInterface userInterface;
+	private VenueDAO venueDAO;
+	private SpaceDAO spaceDAO;
+	private ReservationDAO reservationDAO;
+
 	public static void main(String[] args) {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/excelsior_venues");
@@ -17,7 +22,11 @@ public class ExcelsiorCLI {
 	}
 
 	public ExcelsiorCLI(DataSource datasource) {
-		// create your DAOs here
+		this.userInterface = new UserInterface(System.in, System.out);
+		venueDAO = new JDBCVenueDAO(datasource);
+		spaceDAO = new JDBCSpaceDAO(datasource);
+		reservationDAO = new JDBCReservationDAO(datasource);
+
 	}
 
 	public void run() {
