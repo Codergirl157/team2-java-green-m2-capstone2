@@ -20,20 +20,27 @@ public class JDBCSpaceDAO implements SpaceDAO {
 
 
     @Override
-    public List<Space> retrieveAllSpacesByVenueId() {
+    public List<Space> retrieveAllSpacesByVenueId(long venueId) {
 
         List<Space> listOfAllSpaces = new ArrayList<>();
 
+        Space space = null;
+
+                String sql = "SELECT name " + "FROM space " + "WHERE venue_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql,venueId);
+
+        while(results.next())
+
+             space = mapRowToSpace(results);
+
+        listOfAllSpaces.add(space);
 
 
-
-
-
-
-        return null;
+        return listOfAllSpaces;
     }
 
-    @Override
+    @Override //need help
     public List<Space> retrieveAvailableSpaces() {
         return null;
     }

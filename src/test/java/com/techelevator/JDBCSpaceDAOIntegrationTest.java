@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -7,14 +8,23 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 public class JDBCSpaceDAOIntegrationTest extends DAOIntegrationTest {
 
-    private static SingleConnectionDataSource dataSource;
+
+
     private SpaceDAO spaceDAO;
     private JdbcTemplate jdbcTemplate;
+    private JDBCSpaceDAO dao;
+
+    @Before
+    public void setUp(){
+        spaceDAO = new JDBCSpaceDAO(getDataSource());
+    }
 
 
 
     @Test
     public void return_spaces_by_venue_id(){
+
+
 
 
 

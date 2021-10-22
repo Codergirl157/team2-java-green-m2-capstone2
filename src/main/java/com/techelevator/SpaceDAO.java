@@ -6,7 +6,7 @@ public interface SpaceDAO {
 
 
 
-    public List<Space> retrieveAllSpacesByVenueId();
+    public List<Space> retrieveAllSpacesByVenueId(long venueId);
 
 
 

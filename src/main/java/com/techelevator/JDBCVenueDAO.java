@@ -1,6 +1,6 @@
 package com.techelevator;
 
-import jdk.jfr.Category;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -26,8 +26,10 @@ public class JDBCVenueDAO implements VenueDAO{
 
         List<Venue> venues = new ArrayList<>();
 
-        String sql = "SELECT name " +
-                "FROM venue ";
+        String sql = "SELECT venue.*, city.name, state.abbreviation " +
+                "FROM venue " +
+                "JOIN city on venue.city_id = city.id "+
+                "JOIN state on city.state_abbreviation = state.abbreviation ";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 
@@ -81,8 +83,8 @@ public class JDBCVenueDAO implements VenueDAO{
 
        venue.setVenueId(results.getLong("id"));
        venue.setVenueName(results.getString("name"));
-       venue.setCity(results.getString("city"));
-       venue.setState(results.getString("state"));
+       venue.setCity(results.getString("name"));
+       venue.setState(results.getString("abbreviation"));
        venue.setDescription(results.getString("description"));
 
     return venue;

@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -7,13 +8,21 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 public class JDBCReservationDAOIntegrationTest extends DAOIntegrationTest {
 
-    private static SingleConnectionDataSource dataSource;
+
     private ReservationDAO reservationDAO;
     private JdbcTemplate jdbcTemplate;
+    private JDBCReservationDAO dao;
+
+    @Before
+    public void setUp(){
+        reservationDAO = new JDBCReservationDAO(getDataSource());
+    }
 
 
     @Test
     public void return_new_reservation(){
+
+      //  dao.createReservation();
 
 
 

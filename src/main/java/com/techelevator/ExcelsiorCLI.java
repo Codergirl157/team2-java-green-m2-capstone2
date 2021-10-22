@@ -13,7 +13,7 @@ public class ExcelsiorCLI {
 
 	public static void main(String[] args) {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setUrl("jdbc:postgresql://localhost:5432/excelsior_venues");
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/excelsiorVenues");
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("postgres1");
 
@@ -22,7 +22,7 @@ public class ExcelsiorCLI {
 	}
 
 	public ExcelsiorCLI(DataSource datasource) {
-		this.userInterface = new UserInterface(System.in, System.out);
+		this.userInterface = new UserInterface();
 		venueDAO = new JDBCVenueDAO(datasource);
 		spaceDAO = new JDBCSpaceDAO(datasource);
 		reservationDAO = new JDBCReservationDAO(datasource);
