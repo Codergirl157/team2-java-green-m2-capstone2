@@ -47,6 +47,7 @@ public class UserInterface {
     }
 
     public int promptUserForVenue(){
+        System.out.println("\n");
         System.out.println("Which venue would like to view?");
         String answer = scanner.nextLine();
         int venueAnswer = Integer.parseInt(answer);
@@ -54,7 +55,7 @@ public class UserInterface {
         return venueAnswer;
     }
 
-    public String viewVenueDetails(Venue userVenue, List<String>categories) {
+    public void viewVenueDetails(Venue userVenue, List<String>categories) {
 
 
         System.out.println("Venue: " + userVenue.getVenueName());
@@ -65,10 +66,11 @@ public class UserInterface {
         System.out.println("Description: " + userVenue.getDescription());
         System.out.println();
 
-        return null;
     }
 
     public String viewSecondMenu(){
+
+        System.out.println("\n");
 
         System.out.println("What would you like to do next?");
         System.out.println("1) View Spaces ");
@@ -80,14 +82,17 @@ public class UserInterface {
 
     public void viewAllVenueSpaces(Venue userVenue,List<Space> listOfSpaces) {
         System.out.println(userVenue.getVenueName());
-        System.out.println("Name" + "Open" + "Close" + "Daily Rate" + "Max. Occupancy");
+        System.out.println(String.format("%-35s", "Name") + String.format("%9s","Open") + String.format("%9s", "Close")
+                + String.format("%15s", "Daily Rate") + String.format("%20s", "Max. Occupancy"));
         int count = 0;
         for (int i = 0; i < listOfSpaces.size(); i++) {
             count++;
             String number = Integer.toString(count);
 
-            System.out.println("#" + number + " " + listOfSpaces.get(i).getSpaceName() + " " + listOfSpaces.get(i).getOpenMonth()
-                    + listOfSpaces.get(i).getCloseMonth() + "$" + listOfSpaces.get(i).getDailyRate() + listOfSpaces.get(i).getMaxOccupancy());
+            System.out.println(String.format("%-8s","#" + number) + String.format("%-35s", listOfSpaces.get(i).getSpaceName())
+                    + String.format("%-6s", listOfSpaces.get(i).getOpenMonth()) + String.format("%-6s", listOfSpaces.get(i).getCloseMonth()) +
+                    "$" + String.format("%-15s", listOfSpaces.get(i).getDailyRate()) +
+                    String.format("%15s", listOfSpaces.get(i).getMaxOccupancy()));
         }
         System.out.println("\n");
     }
@@ -103,18 +108,15 @@ public class UserInterface {
 
     }
 
-    public String viewAvailableVenueSpaces(List<Space> listOfAvailableSpaces, int userDays){
+    public void viewAvailableVenueSpaces(List<Space> listOfAvailableSpaces, int userDays){
         System.out.println("The following spaces are available based on your needs: ");
         System.out.println();
-        System.out.println(String.format("%10s", "Space #" )+ String.format("%10s", "Name") + String.format("%12s", "Daily Rate") +
-                String.format("%12s", "Max Occup.") + String.format("%15s","Accessible?") + String.format("%10s", "Total Cost"));
-        BigDecimal ratePerDay  = new BigDecimal(BigInteger.ZERO, 2);
-        BigDecimal totalCost = new BigDecimal(BigInteger.ZERO,2);
+        System.out.println(String.format("%-10s", "Space #" )+ String.format("%-35s", "Name") + String.format("%-12s", "Daily Rate") +
+                String.format("%-12s", "Max Occup.") + String.format("%-15s","Accessible?") + String.format("%10s", "Total Cost"));
         for (int i = 0; i < listOfAvailableSpaces.size();i++){
-        System.out.println("%10s", listOfAvailableSpaces.get(i).getSpaceId() + listOfAvailableSpaces.get(i).getSpaceName() + listOfAvailableSpaces.get(i).getDailyRate()
-        + listOfAvailableSpaces.get(i).getMaxOccupancy() + listOfAvailableSpaces.get(i).isAccessible() + "Total Cost");
+        System.out.println(String.format("%-10s", listOfAvailableSpaces.get(i).getSpaceId()) + String.format("%-35s", listOfAvailableSpaces.get(i).getSpaceName()) + "$" + String.format("%-10s",listOfAvailableSpaces.get(i).getDailyRate())
+        + String.format("%10s", listOfAvailableSpaces.get(i).getMaxOccupancy()) + String.format("%12s", listOfAvailableSpaces.get(i).isAccessible()) + String.format("%15s", BigDecimal.valueOf(userDays).multiply(listOfAvailableSpaces.get(i).getDailyRate())));
         }
-        return null;
 
     }
 
@@ -137,8 +139,8 @@ public class UserInterface {
 
     }
 
-    public String printConfirmation(Venue venue,long space, String reserveFor, int attendees, LocalDate arrivalDate,
-                                    LocalDate endDate){
+    public void printConfirmation(Venue venue, long space, String reserveFor, int attendees, LocalDate arrivalDate,
+                                    LocalDate endDate, int userDays){
 
 
 
@@ -146,21 +148,20 @@ public class UserInterface {
         System.out.println("Thanks for submitting your reservation! The details of your event are listed below:");
         System.out.println("\n");
 
-        System.out.println("Confirmation #: ");
+        System.out.println("Confirmation #: " + Math.random() * 231);
         System.out.println("Venue: " + venue.getVenueName());
         System.out.println("Space: " + space);
-        System.out.println("Reserve For: " + reserveFor );
+        System.out.println("Reserved For: " + reserveFor );
         System.out.println("Attendees: " + attendees);
-        System.out.println("Arrival Date: " + arrivalDate);
-        System.out.println("End Date: " + endDate);
-        System.out.println("Total Cost: ");
+        System.out.println("Arrival Date: " + formatter.format(arrivalDate) );
+        System.out.println("End Date: " + formatter.format(endDate));
+        System.out.println("Total Cost: " );//+ BigDecimal.valueOf(userDays).multiply(space.getDailyRate()));
 
 
 
 
 
 
-        return null;
     }
 
     public LocalDate reserveSpaceDate() {

@@ -73,6 +73,27 @@ public class JDBCSpaceDAO implements SpaceDAO {
         return spaces;
     }
 
+    //@Override
+    //public Space retrieveSpaceBySpaceId(Long id) {
+        //Space space = null;
+
+        //String sql = "SELECT space.* " +
+               // "FROM space " +
+                //"WHERE id = ? ";
+
+
+        //SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
+
+        //while(results.next()){
+
+           //space = mapRowToSpace(results) ;
+
+        //}
+
+
+        //return space;
+    //}
+
 
     private Space mapRowToSpace(SqlRowSet results) {
 

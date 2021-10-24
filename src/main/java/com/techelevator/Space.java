@@ -7,6 +7,7 @@ public class Space {
 
   private Long spaceId;
   private String spaceName;
+  //private Long venueId;
   private int maxOccupancy;
   private int openMonth;
   private int closeMonth;
@@ -69,4 +70,12 @@ public class Space {
     public void setDailyRate(BigDecimal dailyRate) {
         this.dailyRate = dailyRate;
     }
+
+    //public Long getVenueId(long venue_id) {
+        //return venueId;
+    //}
+
+    //public void setVenueId(Long venueId) {
+        //this.venueId = venueId;
+    //}
 }

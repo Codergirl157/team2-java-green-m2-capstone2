@@ -14,6 +14,9 @@ public interface SpaceDAO {
     public List<Space> retrieveAvailableSpaces(long venueId, LocalDate startDate, LocalDate endDate, int occupancy);
 
 
+    //public Space retrieveSpaceBySpaceId(Long id);
+
+
 
 
 

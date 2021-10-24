@@ -48,11 +48,13 @@ public class ExcelsiorCLI {
 				List<String> categories = venueDAO.retrieveListOfCategories(venueId);
 				userInterface.viewVenueDetails(userVenue, categories);
 				String secondMenuUserChoice = userInterface.viewSecondMenu();
+
 				if(secondMenuUserChoice.equals("1")){
 					List<Space> listOfSpaces = spaceDAO.retrieveAllSpacesByVenueId(venueId);
 					userInterface.viewAllVenueSpaces(userVenue,listOfSpaces);
 					String thirdMenuChoice = userInterface.viewThirdMenu();
-				if(thirdMenuChoice.equals("1")){
+
+					if(thirdMenuChoice.equals("1")){
 					LocalDate userDate = userInterface.reserveSpaceDate();
 					int userDays = userInterface.reserveSpaceHowLong();
 					LocalDate userEndDate = userDate.plusDays(userDays);
@@ -60,17 +62,24 @@ public class ExcelsiorCLI {
 					List<Space> listOfAvailableSpaces = spaceDAO.retrieveAvailableSpaces(venueId, userDate, userEndDate, userAttendees);
 					userInterface.viewAvailableVenueSpaces(listOfAvailableSpaces, userDays);
 					Long userSpaceId = userInterface.promptUserForReserveRequest();
+					//Space userSpace = spaceDAO.retrieveSpaceBySpaceId(userSpaceId);
+
 						if(userSpaceId == 0){
 							userInterface.viewVenueMenu(listOfVenues);
 						}else{
 							String userReserveFor = userInterface.promptUserForReserveFor();
 							//Reservation userReservation = reservationDAO.createReservation(venueId, userSpaceId, userReserveFor, userAttendees, userDate, userEndDate);
-							userInterface.printConfirmation(userVenue, userSpaceId, userReserveFor, userAttendees, userDate, userEndDate);
+							userInterface.printConfirmation(userVenue, userSpaceId, userReserveFor, userAttendees, userDate, userEndDate, userDays);
 
 
 						}
 
-				}
+				} else if(thirdMenuChoice.equals("R")){
+
+						userInterface.viewSecondMenu();
+
+
+					}
 				}
 				else if(secondMenuUserChoice.equals("2")){
 				}

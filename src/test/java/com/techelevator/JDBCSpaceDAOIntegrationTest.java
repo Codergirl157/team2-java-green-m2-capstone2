@@ -22,6 +22,7 @@ public class JDBCSpaceDAOIntegrationTest extends DAOIntegrationTest {
     private SpaceDAO spaceDAO;
     private JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
     private JDBCSpaceDAO dao = new JDBCSpaceDAO(getDataSource());
+    private Object results;
 
     @Before
     public void setUp(){
@@ -64,6 +65,22 @@ public class JDBCSpaceDAOIntegrationTest extends DAOIntegrationTest {
 
 
     }
+
+   // @Test
+    //public void return_space_by_id(){
+
+        //long nextId = retrieveNextSpaceId();
+
+        //String sqlInsertSpace;
+        //sqlInsertSpace = "INSERT INTO space(id, venue_id, name, max_occupancy, open_from, open_to, is_accessible, daily_rate) VALUES (?, 3, 'The Pineapple', 10, 6, 10, true, 400.00 ) ";
+        //jdbcTemplate.update(sqlInsertSpace, nextId);
+
+        //Space results = dao.retrieveSpaceBySpaceId(nextId);
+
+        //assertNotNull(results);
+
+    //}
+
 
     private Space mapRowToSpace(SqlRowSet results) {
 
