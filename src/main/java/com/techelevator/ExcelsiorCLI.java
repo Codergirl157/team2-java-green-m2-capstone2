@@ -55,10 +55,20 @@ public class ExcelsiorCLI {
 				if(thirdMenuChoice.equals("1")){
 					LocalDate userDate = userInterface.reserveSpaceDate();
 					int userDays = userInterface.reserveSpaceHowLong();
-					LocalDate userEndDate = LocalDate.now(ZoneId.from(userDate)).plusDays(userDays);
+					LocalDate userEndDate = userDate.plusDays(userDays);
 					int userAttendees = userInterface.reserveSpaceHowMany();
 					List<Space> listOfAvailableSpaces = spaceDAO.retrieveAvailableSpaces(venueId, userDate, userEndDate, userAttendees);
-					userInterface.viewAvailableVenueSpaces(listOfAvailableSpaces);
+					userInterface.viewAvailableVenueSpaces(listOfAvailableSpaces, userDays);
+					Long userSpaceId = userInterface.promptUserForReserveRequest();
+						if(userSpaceId == 0){
+							userInterface.viewVenueMenu(listOfVenues);
+						}else{
+							String userReserveFor = userInterface.promptUserForReserveFor();
+							//Reservation userReservation = reservationDAO.createReservation(venueId, userSpaceId, userReserveFor, userAttendees, userDate, userEndDate);
+							userInterface.printConfirmation(userVenue, userSpaceId, userReserveFor, userAttendees, userDate, userEndDate);
+
+
+						}
 
 				}
 				}
