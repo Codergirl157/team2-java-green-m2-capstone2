@@ -8,7 +8,16 @@ private String venueName;
 private String city;
 private String state;
 private String description;
-private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    private String category;
 
 
     public Long getVenueId() {

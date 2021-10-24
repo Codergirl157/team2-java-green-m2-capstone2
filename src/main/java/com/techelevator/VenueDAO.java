@@ -12,7 +12,7 @@ public interface VenueDAO {
     public Venue retrieveVenueById(Long id);
 
 
-    public List<String> retrieveListOfCategories();
+    public List<String> retrieveListOfCategories(long venueId);
 
 
 }

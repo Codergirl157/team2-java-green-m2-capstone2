@@ -29,7 +29,8 @@ public class JDBCVenueDAO implements VenueDAO{
         String sql = "SELECT venue.*, city.name, state.abbreviation " +
                 "FROM venue " +
                 "JOIN city on venue.city_id = city.id "+
-                "JOIN state on city.state_abbreviation = state.abbreviation ";
+                "JOIN state on city.state_abbreviation = state.abbreviation " +
+                "ORDER BY venue.name";
 
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 
@@ -68,7 +69,7 @@ public class JDBCVenueDAO implements VenueDAO{
     }
 
     @Override
-    public List<String> retrieveListOfCategories() {
+    public List<String> retrieveListOfCategories(long venueId) {
 
         List<String> categories = new ArrayList<>();
 
@@ -76,6 +77,8 @@ public class JDBCVenueDAO implements VenueDAO{
                 "FROM category "
                 + "JOIN category_venue ON category.id = category_venue.category.id"
                 + "WHERE venue_id = ?";
+        //SqlRowSet results = jdbcTemplate.queryForRowSet(sql, venueId);
+
 
         return categories;
     }
@@ -92,10 +95,8 @@ public class JDBCVenueDAO implements VenueDAO{
 
     return venue;
 
-
-
-
    }
+
 
    private int retrieveNextVenueId(){
 
@@ -112,6 +113,8 @@ public class JDBCVenueDAO implements VenueDAO{
 
 
     }
+
+
 
 
    }
