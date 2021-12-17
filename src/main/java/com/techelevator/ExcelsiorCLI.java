@@ -40,14 +40,16 @@ public class ExcelsiorCLI {
 			String userChoice = userInterface.printMenu();
 			if (userChoice.equals("1")) {
 				List<Venue> listOfVenues = venueDAO.retrieveAllVenues();
+
 				userInterface.viewVenueMenu(listOfVenues);
 				int userVenueChoice = userInterface.promptUserForVenue();
+
 				Venue venue = listOfVenues.get(userVenueChoice - 1);
 				long venueId = venue.getVenueId();
 				Venue userVenue = venueDAO.retrieveVenueById(venueId);
 				List<String> categories = venueDAO.retrieveListOfCategories(venueId);
 				userInterface.viewVenueDetails(userVenue, categories);
-				String secondMenuUserChoice = userInterface.viewSecondMenu();
+				String secondMenuUserChoice = userInterface.viewNextStepsMenu();
 
 				if(secondMenuUserChoice.equals("1")){
 					List<Space> listOfSpaces = spaceDAO.retrieveAllSpacesByVenueId(venueId);
@@ -76,7 +78,7 @@ public class ExcelsiorCLI {
 
 				} else if(thirdMenuChoice.equals("R")){
 
-						userInterface.viewSecondMenu();
+						userInterface.viewNextStepsMenu();
 
 
 					}

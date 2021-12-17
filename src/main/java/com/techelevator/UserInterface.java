@@ -68,7 +68,7 @@ public class UserInterface {
 
     }
 
-    public String viewSecondMenu(){
+    public String viewNextStepsMenu(){
 
         System.out.println("\n");
 
